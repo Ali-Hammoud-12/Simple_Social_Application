@@ -1,10 +1,23 @@
 version: 0.2
 
 phases:
+  install:
+    runtime-versions:
+      nodejs: 18
+    commands:
+      - echo Installing NPM dependencies...
+      - npm install
   pre_build:
     commands:
       - echo Running pre-build commands...
   build:
     commands:
-      - echo Building the Node.js application...
+      - echo Building the application...
       - npm run build
+  post_build:
+    commands:
+      - echo Zipping the built application...
+      - zip -r facebook-clone.zip .
+artifacts:
+  files:
+    - facebook-clone.zip
