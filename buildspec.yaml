@@ -12,6 +12,7 @@ phases:
       - echo Running pre-build commands...
   build:
     commands:
+<<<<<<< HEAD
       - echo Building the application...
       - npm run build
   post_build:
@@ -21,3 +22,7 @@ phases:
 artifacts:
   files:
     - facebook-clone.zip
+=======
+      - echo Building the Node.js application...
+      # - npm run build
+>>>>>>> efbe82094e83505f83ee1fb36ed1c0f7c8d033b8
