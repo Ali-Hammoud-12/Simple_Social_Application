@@ -7,4 +7,4 @@ phases:
   build:
     commands:
       - echo Building the Node.js application...
-      - npm run build
+      # - npm run build
