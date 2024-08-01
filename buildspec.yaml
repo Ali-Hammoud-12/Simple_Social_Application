@@ -2,8 +2,6 @@ version: 0.2
 
 phases:
   install:
-    runtime-versions:
-      nodejs: 18
     commands:
       - echo Installing NPM dependencies...
       - npm install
@@ -12,17 +10,27 @@ phases:
       - echo Running pre-build commands...
   build:
     commands:
-<<<<<<< HEAD
       - echo Building the application...
       - npm run build
+
+      - echo Creating a ZIP file of the application...
+      - zip -r facebook-clone.zip .
+
+      - echo Uploading the ZIP file to S3...
+      - aws s3 cp facebook-clone.zip s3://my-s3-bucket12332/facebook-clone.zip
+
+      - echo Defining version label...
+      - VERSION_LABEL=$(date +%Y%m%d%H%M%S)
+
+      - echo Creating a new application version in Elastic Beanstalk...
+      - aws elasticbeanstalk create-application-version --application-name Social_Media_Application --version-label $VERSION_LABEL --source-bundle S3Bucket=my-s3-bucket12332,S3Key=facebook-clone.zip
+
+      - echo Updating Elastic Beanstalk environment...
+      - aws elasticbeanstalk update-environment --application-name Social_Media_Application --environment-name SocialMediaApplication-env-1 --version-label $VERSION_LABEL
   post_build:
     commands:
-      - echo Zipping the built application...
-      - zip -r facebook-clone.zip .
+      - echo Deployment to Elastic Beanstalk completed.
+
 artifacts:
   files:
     - facebook-clone.zip
-=======
-      - echo Building the Node.js application...
-      # - npm run build
->>>>>>> efbe82094e83505f83ee1fb36ed1c0f7c8d033b8
